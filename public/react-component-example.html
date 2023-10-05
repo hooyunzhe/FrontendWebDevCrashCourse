@@ -1,0 +1,87 @@
+<!-- attribution for icons -->
+<!-- <a href="https://www.flaticon.com/free-icons/cute" title="cute icons">Cute icons created by Freepik - Flaticon</a> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Component Example</title>
+    <link rel="stylesheet" href="html-css-js-example.css">
+  </head>
+  <body>
+    <div class="parent-div" id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/jsx">
+      const appDiv = document.getElementById("app");
+
+      // in React, components are functions that return UI elements
+      // props are passed to components like HTML attributes
+      // they will be accepted as the first parameter
+      // it's an object with each attribute as a property
+      function Header(props) {
+        console.log("props: ", props)
+
+        // variables can be used with curly brackets {}
+        // it's like a way to enter "JavaScript land" while in "JSX land"
+        // this works with any JavaScript expressions (something that evaluates to a single value)
+        // like an object property with dot notation
+        return (
+          <div className="header-div" id="header">
+            <h1 className="main-heading">{props.title}</h1>
+          </div>
+        );
+      }
+
+      function getSoldOutText() {
+        return "Sold out :("
+      }
+
+      // props can be destructed to give names to the values
+      function Item({ name, imageUrl, inStock }) {
+        console.log("name: ", name)
+        console.log("imageUrl: ", imageUrl)
+        console.log("inStock: ", inStock)
+
+        // ternaries, template literals and return value of functions
+        // are all JavaScript expressions that can be added inside curly brackets {}
+        return (
+          <div className="item-div">
+            <div className="description-div">
+              <div className="name-div">
+                <h2 className="item-name">{name}</h2>
+              </div>
+              <div className="image-div">
+                <img className="item-image" src={imageUrl} alt={name} />
+              </div>
+            </div>
+            <button className="item-button" disabled={!inStock}>{inStock ? `Buy ${name}s now!` : getSoldOutText()}</button>
+          </div>
+        );
+      }
+
+      // data often comes in arrays, which can be mapped to dynamically render components
+      function Homepage() {
+        const items = [
+          {name: "Apple", imageUrl: "apple.png", inStock: true},
+          {name: "Orange", imageUrl: "orange.png", inStock: false},
+          {name: "Bee", imageUrl: "bee.png", inStock: true}
+        ];
+
+        // arrow functions are used to map data to components
+        // each component needs to have a unique ID so React knows which element to update
+        return (
+          <div className="child-div">
+            <Header title="Welcome to the shop!"/>
+            <div className="content-div">
+              {items.map((item, index) => (
+                <Item key={index} name={item.name} imageUrl={item.imageUrl} inStock={item.inStock} />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Homepage />, appDiv)
+    </script>
+  </body>
+</html>
