@@ -1,95 +1,49 @@
-import Image from 'next/image';
-import styles from './page.module.css';
+'use client';
+import '../../public/example.css';
+import Header from '@/components/Header';
+import Item from '@/components/Item';
 
 export default function Home() {
+  const items = [
+    { name: 'Apple', imageUrl: '/apple.png', inStock: true },
+    { name: 'Orange', imageUrl: '/orange.png', inStock: false },
+    { name: 'Bee', imageUrl: '/bee.png', inStock: true },
+  ];
+
+  // Header and Item are imported from separate files in the components folder
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            By{' '}
-            <Image
-              src='/vercel.svg'
-              alt='Vercel Logo'
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <div className='parent-div'>
+      <div className='child-div'>
+        <Header title='Welcome to the shop!' />
+        <div className='content-div'>
+          {items.map((item, index) => (
+            <Item
+              key={index}
+              name={item.name}
+              imageUrl={item.imageUrl}
+              inStock={item.inStock}
             />
-          </a>
+          ))}
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src='/next.svg'
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
+
+  // the following code from react-interactivity-example is no longer need
+
+  // react and react-dom have been installed with yarn
+  // <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  // <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  // Next.js has a built-in compiler that transforms JSX/TSX into JavaScript
+  // <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  // the following is done by the Next.js
+  // <script type="text/jsx">
+  // <html> and <body> tags
+  // const appDiv = document.getElementById("app");
+  // ReactDOM.render(<Homepage />, appDiv)
+
+  // useState will be imported from react instead of the below
+  // React.useState(0)
 }
