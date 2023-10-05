@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HTML + CSS Example</title>
-    <link rel="stylesheet" href="html-css-example.css">
+    <title>HTML + CSS + JS Example</title>
+    <link rel="stylesheet" href="html-css-js-example.css">
   </head>
   <body>
     <div class="parent-div">
       <div class="child-div">
         <div class="header-div">
-          <h1 class="main-heading">Welcome to the shop!</h1>
+          <!-- <h1 class="main-heading">Welcome to the shop!</h1> -->
         </div>
         <div class="content-div">
           <div class="item-div">
@@ -49,5 +49,24 @@
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+      // get the header div element by its class name
+      const headerDiv = document.getElementsByClassName("header-div");
+
+      // create a new h1 element
+      const header = document.createElement("h1");
+
+      // create a new text node for the h1 element
+      const headerContent = document.createTextNode("Welcome to the shop!")
+
+      // add heading class to the h1 element
+      header.classList.add("main-heading");
+
+      // add the text to the h1 element
+      header.appendChild(headerContent);
+
+      // add the h1 element to the header div element
+      headerDiv[0].appendChild(header);
+    </script>
   </body>
 </html>
