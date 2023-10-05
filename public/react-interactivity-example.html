@@ -1,0 +1,83 @@
+<!-- attribution for icons -->
+<!-- <a href="https://www.flaticon.com/free-icons/cute" title="cute icons">Cute icons created by Freepik - Flaticon</a> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Interactivity Example</title>
+    <link rel="stylesheet" href="html-css-js-example.css">
+  </head>
+  <body>
+    <div class="parent-div" id="app"></div>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/jsx">
+      const appDiv = document.getElementById("app");
+
+      function Header(props) {
+        return (
+          <div className="header-div" id="header">
+            <h1 className="main-heading">{props.title}</h1>
+          </div>
+        );
+      }
+
+      function getSoldOutText() {
+        return "Sold out :("
+      }
+
+      // state and event handlers add interactivity to React
+      // React hooks are a set of functions that provide additional logic to components
+      // useState() can be utilized to keep track of the amount sold
+      // it returns an array that contains the value and the function to update it
+      function Item({ name, imageUrl, inStock }) {
+        // the array can be destructed to give names to the variables
+        // it's recommended to name the value something descriptive
+        // and the function prefixed with "set" followed by the name of the value
+        // the initial value can be passed as an argument
+        const [amountSold, setAmountSold] = React.useState(0)
+        
+        function handleClick() {
+          setAmountSold(amountSold + 1)
+        }
+
+        // onClick is one of the many possible events that are triggered by user interaction
+        // a handler function or arrow function can be attached to it
+        return (
+          <div className="item-div">
+            <div className="description-div">
+              <div className="name-div">
+                <h2 className="item-name">{name} ({amountSold} sold!)</h2>
+              </div>
+              <div className="image-div">
+                <img className="item-image" src={imageUrl} alt={name} />
+              </div>
+            </div>
+            <button className="item-button" onClick={handleClick} disabled={!inStock}>{inStock ? `Buy ${name}s now!` : getSoldOutText()}</button>
+          </div>
+        );
+      }
+
+      function Homepage() {
+        const items = [
+          {name: "Apple", imageUrl: "apple.png", inStock: true},
+          {name: "Orange", imageUrl: "orange.png", inStock: false},
+          {name: "Bee", imageUrl: "bee.png", inStock: true}
+        ];
+
+        return (
+          <div className="child-div">
+            <Header title="Welcome to the shop!"/>
+            <div className="content-div">
+              {items.map((item, index) => (
+                <Item key={index} name={item.name} imageUrl={item.imageUrl} inStock={item.inStock} />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Homepage />, appDiv)
+    </script>
+  </body>
+</html>
